@@ -29,7 +29,7 @@ resource "aws_security_group" "allow_ssh" {
 
     tags = {
         Name = "allow_ssh"
-        CreatedBy = "Sivakumar"
+        CreatedBy = "Sridhar"
     }
 }
 
