@@ -1,35 +1,35 @@
 # resource <resource-type> <resource-name>
 resource "aws_instance" "db" {
-
-    ami = var.image_id
-    vpc_security_group_ids = [aws_security_group.allow_ssh.id]
+    #count = 3
+    count = length(var.instance_names)
+    ami = "ami-090252cbe067a9e58"
     instance_type = var.instance_type
-    # left side things are called as arguements, right side are values.
-    tags = var.tags
+    vpc_security_group_ids = [aws_security_group.allow_ssh.id]
+    tags = {
+        Name = var.instance_names[count.index]
+    }
 }
 
 resource "aws_security_group" "allow_ssh" {
-    name = var.sg_name
-    description = var.sg_description
+    name = "allow_ssh"
+    description = "allowing SSH access"
 
-    # this is block
     ingress {
-        from_port        = var.ssh_port
-        to_port          = var.ssh_port
-        protocol         = var.protocol
-        cidr_blocks      = var.allowed_cidr
+        from_port        = 22
+        to_port          = 22
+        protocol         = "tcp"
+        cidr_blocks      = ["0.0.0.0/0"]
     }
 
     egress {
         from_port        = 0 # from 0 to 0 means, opening all protocols
         to_port          = 0
         protocol         = "-1" # -1 all protocols
-        cidr_blocks      = var.allowed_cidr
+        cidr_blocks      = ["0.0.0.0/0"]
     }
 
     tags = {
         Name = "allow_ssh"
-        CreatedBy = "Sridhar Kothapalli"
+        CreatedBy = "Sridhar"
     }
 }
-
