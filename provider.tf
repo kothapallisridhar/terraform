@@ -2,12 +2,11 @@ terraform {
   required_providers {
     aws = {
       source = "hashicorp/aws"
-      version = "5.48.0"
+      version = "5.98.0"
     }
   }
 }
 
-# provide authenticatoin here
 provider "aws" {
-  region = "us-east-1"
+  # Configuration options
 }
