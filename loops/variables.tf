@@ -51,3 +51,11 @@ variable "environment" {
 variable "instances" {
     default = ["mongodb", "redis", "mysql", "rabbitmq"]
 }
+
+variable "zone_id" {
+    default = "Z00739521QV9O17MO88NQ"
+}
+
+variable "domain_name" {
+    default = "adevops.shop"
+}
