@@ -1,11 +1,11 @@
-variable environment {
+variable "environment" {
   default = "dev"
-  type = string
+  type    = string
 }
 
 variable "project" {
   default = "roboshop"
-  type = string
+  type    = string
 }
 
 variable "ami_id" {
@@ -57,7 +57,7 @@ variable "sg_tags" {
 }
 
 variable "instances" {
-  type = map
+  type = map(any)
   default = {
     mongodb = {
       "instance_type" = "t3.micro"
@@ -90,7 +90,7 @@ variable "instances" {
       "instance_type" = "t3.micro"
     },
 
-  } 
+  }
   # ["mongodb", "redis", "mysql", "rabbitmq", "catalogue", "user", "cart", "shipping", "payment", "frontend"]
 }
 

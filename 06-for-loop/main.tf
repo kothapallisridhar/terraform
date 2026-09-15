@@ -1,10 +1,10 @@
 resource "aws_instance" "roboshop" {
-  for_each = var.instances
-  ami                    = var.ami_id
-  instance_type          = var.environment == "dev" ? "t3.micro" : "t3.small"
+  for_each      = var.instances
+  ami           = var.ami_id
+  instance_type = var.environment == "dev" ? "t3.micro" : "t3.small"
   vpc_security_group_ids = [
     aws_security_group.roboshop[each.key].id,
-    aws_security_group.common.id]
+  aws_security_group.common.id]
   # labels, metadata, info etc.
   tags = {
     Name = "${var.project}-${var.environment}-${each.key}" # interpolation
@@ -14,7 +14,7 @@ resource "aws_instance" "roboshop" {
 
 # It creates in default VPC
 resource "aws_security_group" "roboshop" {
-  for_each = var.instances
+  for_each    = var.instances
   name        = "${var.project}-${var.environment}-${each.key}"
   description = "Allow TLS inbound traffic and all outbound traffic"
 
@@ -28,7 +28,7 @@ resource "aws_security_group" "roboshop" {
   tags = {
     Name = "${var.project}-${var.environment}-${each.key}"
   }
-  
+
   # first it creates SG and then modify instance SG 
   lifecycle {
     create_before_destroy = true
